@@ -4,7 +4,8 @@
     "description": "Extension NanoBit",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "ssd1306": "github:kittenbot/pxt-oled-ssd1306"
     },
     "files": [
         "README.md",
