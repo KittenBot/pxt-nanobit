@@ -1,0 +1,6 @@
+{
+    "nanobit.DigitalRead|block": "数字读取引脚 %pin",
+    "nanobit.DigitalWrite|block": "向数字 |引脚 %pin|写 %v",
+    "nanobit.AnalogWrite|block": "向模拟 |引脚 %pin|写 %v",
+    "nanobit.AnalogRead|block": "模拟读取引脚 %pin"
+}
