@@ -88,21 +88,25 @@ namespace nanobit {
         A7 = 5,
     }
 
-
-
     //% block = "Digital Read %pin"
     export function DigitalRead(pin: ArDigiPin): number {
         return pins.digitalReadPin(DigiPinMap[pin]);
     }
 
-    //% block = "Digital Write %pin %v"
-    export function DigitalWrite(pin: ArDigiPin, v: number): void {
-        pins.digitalWritePin(DigiPinMap[pin], v);
+    //% block = "Digital Write %pin %value"
+    //% value.min=0 value.max=1
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
+    export function DigitalWrite(pin: ArDigiPin, value: number): void {
+        pins.digitalWritePin(DigiPinMap[pin], value);
     }
 
-    //% block = "Analog Write %pin %v"
-    export function AnalogWrite(pin: ArAPin, v: number): void {
-        pins.analogWritePin(AnalogPinMap[pin], v);
+    //% block = "Analog Write %pin %value"
+    //% value.min=0 value.max=1023
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
+    export function AnalogWrite(pin: ArAPin, value: number): void {
+        pins.analogWritePin(AnalogPinMap[pin], value);
     }
 
     //% block = "Analog Read %pin"
@@ -110,8 +114,9 @@ namespace nanobit {
         return pins.analogReadPin(AnalogPinMap[pin]);
     }
 
-
-
-
+    //% block = "%pin Pull Mode %mode"
+    export function PinMode(pin: ArDigiPin, mode: PinPullMode): void {
+        pins.setPull(DigiPinMap[pin], mode);
+    }
 
 }

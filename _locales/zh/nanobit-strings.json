@@ -1,0 +1,7 @@
+{
+	"nanobit.DigitalRead|block": "数字读 %pin",
+    "nanobit.DigitalWrite|block": "数字写 %pin %value",
+    "nanobit.AnalogWrite|block": "模拟写 %pin %value",
+	"nanobit.AnalogRead|block": "模拟度 %pin",
+    "nanobit.PinMode|block": "%pin 上下拉 %mode"
+}
