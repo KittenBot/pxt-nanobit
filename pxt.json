@@ -1,11 +1,11 @@
 {
     "name": "nanobit",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Extension NanoBit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "SSD1306_OLED": "github:tinkertanker/pxt-oled-ssd1306#v2.0.9"
+        "OledKitten": "github:kittenbot/pxt-oled"
     },
     "files": [
         "README.md",
