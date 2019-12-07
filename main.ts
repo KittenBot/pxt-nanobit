@@ -88,6 +88,16 @@ namespace nanobit {
         A7 = 5,
     }
 
+    export enum MotorIdx {
+        M1A = 0,
+        M1B = 1,
+        M2A = 2,
+        M2B = 3
+    }
+
+    let motorSpd = [0,0,0,0];
+    let isMotorExtInit = 0;
+
     //% block = "Digital Read %pin"
     export function DigitalRead(pin: ArDigiPin): number {
         return pins.digitalReadPin(DigiPinMap[pin]);
@@ -118,5 +128,73 @@ namespace nanobit {
     export function PinMode(pin: ArDigiPin, mode: PinPullMode): void {
         pins.setPull(DigiPinMap[pin], mode);
     }
+
+    //% block = "Motor Ext %idx speed%s"
+    //% spd.min=-255 spd.max=255
+    export function MotorExtRun(idx: MotorIdx, spd: number): void {
+        if (!isMotorExtInit){
+            MotorExtInit()
+        }
+        motorSpd[idx] = spd;
+        let buf = pins.createBuffer(9)
+        // continues write
+        buf[0] = 0x2 | 0x80
+        if (motorSpd[0] >=0){
+            buf[1] = 0; buf[2] = motorSpd[0];
+        } else {
+            buf[1] = Math.abs(motorSpd[0]); buf[2] = 0;
+        }
+        if (motorSpd[1] >= 0) {
+            buf[3] = 0; buf[4] = motorSpd[1];
+        } else {
+            buf[3] = Math.abs(motorSpd[1]);  buf[4] = 0;
+        }
+        if (motorSpd[2] >= 0) {
+            buf[5] = 0; buf[6] = motorSpd[2];
+        } else {
+            buf[5] = Math.abs(motorSpd[2]); buf[6] = 0;
+        }
+        if (motorSpd[3] >= 0) {
+            buf[7] = 0; buf[8] = motorSpd[3];
+        } else {
+            buf[7] = Math.abs(motorSpd[3]); buf[8] = 0;
+        }
+        pins.i2cWriteBuffer(0, buf)
+    }
+
+
+    function MotorExtInit() {
+        let addr = 0
+        let buf = pins.createBuffer(2)
+        buf[0] = 0x0
+        buf[1] = 0x01
+        pins.i2cWriteBuffer(addr, buf)
+        basic.pause(200)
+
+        pins.i2cWriteNumber(addr, 0x0, NumberFormat.UInt8BE);
+        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
+
+        buf = pins.createBuffer(3)
+        buf[0] = 0x0C | 0x80
+        buf[1] = 0xAA
+        buf[1] = 0xAA
+        pins.i2cWriteBuffer(addr, buf)
+        basic.pause(200)
+        buf = pins.createBuffer(9)
+        // continues write
+        buf[0] = 0x2 | 0x80
+        buf[1] = 0
+        buf[2] = 0
+        buf[3] = 0
+        buf[4] = 0
+        buf[5] = 0
+        buf[6] = 0
+        buf[7] = 0
+        buf[8] = 0
+        pins.i2cWriteBuffer(addr, buf)
+        isMotorExtInit = 1;
+    }
+
+    
 
 }
