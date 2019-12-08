@@ -164,7 +164,7 @@ namespace nanobit {
 
 
     function MotorExtInit() {
-        let addr = 0
+        let addr = 0x00
         let buf = pins.createBuffer(2)
         buf[0] = 0x0
         buf[1] = 0x01
@@ -180,18 +180,18 @@ namespace nanobit {
         buf[1] = 0xAA
         pins.i2cWriteBuffer(addr, buf)
         basic.pause(200)
-        buf = pins.createBuffer(9)
-        // continues write
-        buf[0] = 0x2 | 0x80
-        buf[1] = 0
-        buf[2] = 0
-        buf[3] = 0
-        buf[4] = 0
-        buf[5] = 0
-        buf[6] = 0
-        buf[7] = 0
-        buf[8] = 0
-        pins.i2cWriteBuffer(addr, buf)
+        // buf = pins.createBuffer(9)
+        // // continues write
+        // buf[0] = 0x2 | 0x80
+        // buf[1] = 0x80
+        // buf[2] = 0x80
+        // buf[3] = 0x80
+        // buf[4] = 0x80
+        // buf[5] = 0x80
+        // buf[6] = 0x80
+        // buf[7] = 0x80
+        // buf[8] = 0x80
+        // pins.i2cWriteBuffer(addr, buf)
         isMotorExtInit = 1;
     }
 
