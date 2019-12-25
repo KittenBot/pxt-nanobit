@@ -95,7 +95,7 @@ namespace nanobit {
         M2B = 3
     }
 
-    let motorSpd = [0,0,0,0];
+    let motorSpd = [0, 0, 0, 0];
     let isMotorExtInit = 0;
 
     //% block = "Digital Read %pin"
@@ -103,7 +103,7 @@ namespace nanobit {
         return pins.digitalReadPin(DigiPinMap[pin]);
     }
 
-    //% block = "Digital Write %pin %value"
+    //% block="Digital Write %pin %value"
     //% value.min=0 value.max=1
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
@@ -111,7 +111,7 @@ namespace nanobit {
         pins.digitalWritePin(DigiPinMap[pin], value);
     }
 
-    //% block = "Analog Write %pin %value"
+    //% block="Analog Write %pin %value"
     //% value.min=0 value.max=1023
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
@@ -119,37 +119,89 @@ namespace nanobit {
         pins.analogWritePin(AnalogPinMap[pin], value);
     }
 
-    //% block = "Analog Read %pin"
+    //% block="Analog Read %pin"
     export function AnalogRead(pin: ArAPin): number {
         return pins.analogReadPin(AnalogPinMap[pin]);
     }
 
-    //% block = "%pin Pull Mode %mode"
+    //% block="%pin Pull Mode %mode"
     export function PinMode(pin: ArDigiPin, mode: PinPullMode): void {
         pins.setPull(DigiPinMap[pin], mode);
     }
 
-    //% block = "Motor Ext %idx speed%s"
+    //% block="Motor %idx speed%s"
     //% spd.min=-255 spd.max=255
     export function MotorExtRun(idx: MotorIdx, spd: number): void {
-        if (!isMotorExtInit){
+        if (!isMotorExtInit) {
             MotorExtInit()
         }
         motorSpd[idx] = spd;
         let buf = pins.createBuffer(3)
         // continues write
-        buf[0] = 0x80 + (idx+1)*2;
-        if (motorSpd[idx] >=0){
+        buf[0] = 0x80 + (idx + 1) * 2;
+        if (motorSpd[idx] >= 0) {
             buf[1] = 0; buf[2] = motorSpd[idx];
         } else {
             buf[1] = Math.abs(motorSpd[idx]); buf[2] = 0;
         }
-        
+
         pins.i2cWriteBuffer(0, buf)
-        basic.pause(20)
+        // basic.pause(20)
     }
 
-    //% block = "Motor Stop All"
+    //% block="Motor %idxA speed %spdA %idxB speed %spdB"
+    //% spdA.min=-255 spdA.max=255
+    //% spdB.min=-255 spdB.max=255
+    export function MotorRunDual(idxA: MotorIdx, spdA: number, idxB: MotorIdx, spdB: number): void {
+        MotorExtRun(idxA, spdA);
+        MotorExtRun(idxB, spdB);
+    }
+
+    //% block="Motor |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
+    //% m1.min=-255 m1.max=255
+    //% m2.min=-255 m2.max=255
+    //% m3.min=-255 m3.max=255
+    //% m4.min=-255 m4.max=255
+    export function MotorExt4(m1: number, m2: number, m3: number, m4: number): void {
+        if (!isMotorExtInit) {
+            MotorExtInit()
+        }
+        motorSpd[0] = m1;
+        motorSpd[1] = m2;
+        motorSpd[2] = m3;
+        motorSpd[3] = m4;
+        let buf = pins.createBuffer(9)
+        // continues write
+        buf[0] = 0x80 + 0x2; // start from PWM0
+        if (motorSpd[0] >= 0) {
+            buf[1] = 0; buf[2] = motorSpd[0];
+        } else {
+            buf[1] = Math.abs(motorSpd[0]); buf[2] = 0;
+        }
+
+        if (motorSpd[1] >= 0) {
+            buf[3] = 0; buf[4] = motorSpd[1];
+        } else {
+            buf[3] = Math.abs(motorSpd[1]); buf[4] = 0;
+        }
+
+        if (motorSpd[2] >= 0) {
+            buf[5] = 0; buf[6] = motorSpd[2];
+        } else {
+            buf[5] = Math.abs(motorSpd[2]); buf[6] = 0;
+        }
+
+        if (motorSpd[3] >= 0) {
+            buf[7] = 0; buf[8] = motorSpd[3];
+        } else {
+            buf[7] = Math.abs(motorSpd[3]); buf[8] = 0;
+        }
+
+        pins.i2cWriteBuffer(0, buf)
+        // basic.pause(20)
+    }
+
+    //% block="Motor Stop All"
     export function MotorExtStop(): void {
         if (!isMotorExtInit) {
             MotorExtInit()
@@ -185,6 +237,6 @@ namespace nanobit {
         isMotorExtInit = 1;
     }
 
-    
+
 
 }

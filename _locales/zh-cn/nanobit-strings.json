@@ -5,5 +5,7 @@
     "nanobit.AnalogRead|block": "模拟读取引脚 %pin",
     "nanobit.PinMode|block": "%pin 上下拉 %mode",
     "nanobit.MotorExtRun|block": "电机 %idx |速度 %s",
-    "nanobit.MotorExtStop|block": "所有电机停止"
+    "nanobit.MotorExtStop|block": "所有电机停止",
+    "nanobit.MotorRunDual|block": "双电机 |%idxA 速度%spdA |%idxB 速度%spdB",
+    "nanobit.MotorExt4|block": "四电机 |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
 }
