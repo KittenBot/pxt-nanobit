@@ -3,5 +3,6 @@
     "nanobit.DigitalWrite|block": "向数字 |引脚 %pin|写 %v",
     "nanobit.AnalogWrite|block": "向模拟 |引脚 %pin|写 %v",
     "nanobit.AnalogRead|block": "模拟读取引脚 %pin",
-    "nanobit.PinMode|block": "%pin 上下拉 %mode"
+    "nanobit.PinMode|block": "%pin 上下拉 %mode",
+    "nanobit.MotorExtRun|block": "电机 %idx |速度 %s"
 }

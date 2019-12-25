@@ -1,16 +1,17 @@
 {
     "name": "nanobit",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Extension NanoBit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "OledKitten": "github:kittenbot/pxt-oled#v0.1.4"
+        "OledKitten": "github:kittenbot/pxt-oled#v0.1.5"
     },
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh/nanobit-strings.json"
+        "_locales/zh-cn/nanobit-strings.json",
+        "_locales/zh-tw/nanobit-strings.json"
     ],
     "public": true,
     "preferredEditor": "tsprj"
