@@ -5,7 +5,8 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "oled": "github:kittenbot/pxt-oled#v0.1.5"
+        "oled": "github:kittenbot/pxt-oled#v0.1.5",
+        "neopixel": "github:kittenbot/pxt-neopixel#v0.6.13"
     },
     "files": [
         "README.md",

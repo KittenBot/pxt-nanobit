@@ -5,7 +5,7 @@ load dependency
 */
 
 
-//% color="#08979c" weight=10 icon="\uf043"
+//% color="#08779c" weight=10 icon="\uf043"
 namespace nanobit {
     const DigiPinMap = [
         DigitalPin.P16, // D0
@@ -97,7 +97,7 @@ namespace nanobit {
 
     let motorSpd = [0, 0, 0, 0];
     let isMotorExtInit = 0;
-
+    let neoStrip: neopixel.Strip;
     //% block = "Digital Read %pin"
     export function DigitalRead(pin: ArDigiPin): number {
         return pins.digitalReadPin(DigiPinMap[pin]);
@@ -149,13 +149,13 @@ namespace nanobit {
         // basic.pause(20)
     }
 
-    //% block="Motor %idxA speed %spdA %idxB speed %spdB"
-    //% spdA.min=-255 spdA.max=255
-    //% spdB.min=-255 spdB.max=255
-    export function MotorRunDual(idxA: MotorIdx, spdA: number, idxB: MotorIdx, spdB: number): void {
-        MotorExtRun(idxA, spdA);
-        MotorExtRun(idxB, spdB);
-    }
+    // //% block="Motor %idxA speed %spdA |%idxB speed %spdB"
+    // //% spdA.min=-255 spdA.max=255
+    // //% spdB.min=-255 spdB.max=255
+    // export function MotorRunDual(idxA: MotorIdx, spdA: number, idxB: MotorIdx, spdB: number): void {
+    //     MotorExtRun(idxA, spdA);
+    //     MotorExtRun(idxB, spdB);
+    // }
 
     //% block="Motor |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
     //% m1.min=-255 m1.max=255
@@ -237,6 +237,19 @@ namespace nanobit {
         isMotorExtInit = 1;
     }
 
+    
+    /**
+     * Init RGB pixels mounted on nanobit Shield
+     */
+    //% blockId="nanobit_shield_rgb" block="RGB"
+    //% weight=5
+    export function rgb(): neopixel.Strip {
+        if (!neoStrip) {
+            neoStrip = neopixel.create(DigitalPin.P16, 2, NeoPixelMode.RGB)
+        }
+
+        return neoStrip;
+    }
 
 
 }
