@@ -1,8 +1,8 @@
 {
-    "nanobit.DigitalRead|block": "數字引腳讀 %pin",
-    "nanobit.DigitalWrite|block": "向數字 |引腳 %pin|寫 %v",
-    "nanobit.AnalogWrite|block": "向模擬 |引腳 %pin|寫 %v",
-    "nanobit.AnalogRead|block": "模擬讀取 |引腳 %pin",
+    "nanobit.DigitalRead|block": "數字腳位讀 %pin",
+    "nanobit.DigitalWrite|block": "向數字 |腳位 %pin|寫 %v",
+    "nanobit.AnalogWrite|block": "向類比 |腳位 %pin|寫 %v",
+    "nanobit.AnalogRead|block": "類比讀取 |腳位 %pin",
     "nanobit.PinMode|block": "%pin 上下拉 %mode",
     "nanobit.MotorExtRun|block": "電機 %idx |速度 %s",
     "nanobit.MotorExtStop|block": "所有電機停止",
