@@ -1,12 +1,12 @@
 {
     "name": "nanobit",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "Extension NanoBit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "oled": "github:kittenbot/pxt-oled#v0.1.5",
-        "neopixel": "github:kittenbot/pxt-neopixel#v0.6.13"
+        "oled": "github:kittenbot/pxt-oled#v0.1.6",
+        "neopixel": "github:kittenbot/pxt-neopixel#v0.6.15"
     },
     "files": [
         "README.md",
