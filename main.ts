@@ -97,17 +97,29 @@ namespace nanobit {
     }
 
     export enum Run {
+        //% block=forward
         Forward =0,
+        //% block=back
         Back = 1,
+        //% block=rightShift
         RightShift = 2,
+        //% block=leftShift
         LeftShift = 3,
+        //% block=northeast
         Northeast = 4,
+        //% block=southeast 
         Southeast = 5,
+        //% block=southwest
         Southwest = 6,
+        //% block=northwest
         Northwest = 7,
+        //% block=rotateRight
         RotateRight = 8,
+        //% block=rotateLeft
         RotateLeft = 9,
+        //% block=driftRight
         DriftRight = 10,
+        //% block=driftLeft
         DriftLeft = 11
     }
 
@@ -273,7 +285,7 @@ namespace nanobit {
      * @param speed [0-255] speed of car; eg: 255
     */
     //% block="Car %mode speed %spd"
-    //% group="Mecanum Car"
+    //% group="Mecanum Car"  weight=22
     //% speed.min=0 speed.max=255
     export function MecanumRun(mode: Run, speed: number): void{
         if (mode == 0){
