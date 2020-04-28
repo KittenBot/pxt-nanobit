@@ -6,6 +6,17 @@
     "nanobit.PinMode|block": "%pin 上下拉 %mode",
     "nanobit.MotorExtRun|block": "电机 %idx |速度 %s",
     "nanobit.MotorExtStop|block": "所有电机停止",
-    "nanobit.MotorRunDual|block": "双电机 |%idxA 速度%spdA |%idxB 速度%spdB",
-    "nanobit.MotorExt4|block": "四电机 |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
+    "nanobit.MecanumRun|block": "麦轮车 %mode 速度 %spd",
+    "nanobit.Run.Forward|block": "前进",
+    "nanobit.Run.Back|block": "后退",
+    "nanobit.Run.RightShift|block": "右平移",
+    "nanobit.Run.LeftShift|block": "左平移",
+    "nanobit.Run.Northeast|block": "右上方",
+    "nanobit.Run.Southeast|block": "右下方",
+    "nanobit.Run.Southwest|block": "左下方",
+    "nanobit.Run.Northwest|block": "左上方",
+    "nanobit.Run.RotateLeft|block": "左旋转",
+    "nanobit.Run.RotateRight|block": "右旋转",
+    "nanobit.Run.DriftRight|block": "右漂移",
+    "nanobit.Run.DriftLeft|block": "左漂移"
 }

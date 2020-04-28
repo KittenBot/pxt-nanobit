@@ -5,7 +5,8 @@ load dependency
 */
 
 
-//% color="#08779c" weight=10 icon="\uf043"
+//% color="#fe9973" weight=10 icon="\uf043"
+//% groups='["Arduino Nano Shield", "Nanobit Shield"", "Mecanum Car"]'
 namespace nanobit {
     const DigiPinMap = [
         DigitalPin.P16, // D0
@@ -95,16 +96,33 @@ namespace nanobit {
         M2B = 3
     }
 
+    export enum Run {
+        Forward =0,
+        Back = 1,
+        RightShift = 2,
+        LeftShift = 3,
+        Northeast = 4,
+        Southeast = 5,
+        Southwest = 6,
+        Northwest = 7,
+        RotateRight = 8,
+        RotateLeft = 9,
+        DriftRight = 10,
+        DriftLeft = 11
+    }
+
     let motorSpd = [0, 0, 0, 0];
     let isMotorExtInit = 0;
     let neoStrip: neopixel.Strip;
-    //% block = "Digital Read %pin"
+    //% block="Digital Read %pin"
+    //% group="Arduino Nano Shield" weight=66
     export function DigitalRead(pin: ArDigiPin): number {
         return pins.digitalReadPin(DigiPinMap[pin]);
     }
 
     //% block="Digital Write %pin %value"
     //% value.min=0 value.max=1
+    //% group="Arduino Nano Shield" weight=65
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
     export function DigitalWrite(pin: ArDigiPin, value: number): void {
@@ -113,6 +131,7 @@ namespace nanobit {
 
     //% block="Analog Write %pin %value"
     //% value.min=0 value.max=1023
+    //% group="Arduino Nano Shield" weight=63
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     //% name.fieldOptions.tooltips="false" name.fieldOptions.width="250"
     export function AnalogWrite(pin: ArAPin, value: number): void {
@@ -120,16 +139,19 @@ namespace nanobit {
     }
 
     //% block="Analog Read %pin"
+    //% group="Arduino Nano Shield" weight=64
     export function AnalogRead(pin: ArAPin): number {
         return pins.analogReadPin(AnalogPinMap[pin]);
     }
 
     //% block="%pin Pull Mode %mode"
+    //% group="Arduino Nano Shield" weight=67
     export function PinMode(pin: ArDigiPin, mode: PinPullMode): void {
         pins.setPull(DigiPinMap[pin], mode);
     }
 
     //% block="Motor %idx speed%s"
+    //% group="Nanobit Shield"  weight=66
     //% spd.min=-255 spd.max=255
     export function MotorExtRun(idx: MotorIdx, spd: number): void {
         if (!isMotorExtInit) {
@@ -149,15 +171,8 @@ namespace nanobit {
         // basic.pause(20)
     }
 
-    // //% block="Motor %idxA speed %spdA |%idxB speed %spdB"
-    // //% spdA.min=-255 spdA.max=255
-    // //% spdB.min=-255 spdB.max=255
-    // export function MotorRunDual(idxA: MotorIdx, spdA: number, idxB: MotorIdx, spdB: number): void {
-    //     MotorExtRun(idxA, spdA);
-    //     MotorExtRun(idxB, spdB);
-    // }
 
-    //% block="Motor |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
+    //% group="Nanobit Shield"  weight=65
     //% m1.min=-255 m1.max=255
     //% m2.min=-255 m2.max=255
     //% m3.min=-255 m3.max=255
@@ -202,6 +217,7 @@ namespace nanobit {
     }
 
     //% block="Motor Stop All"
+    //% group="Nanobit Shield"  weight=64
     export function MotorExtStop(): void {
         if (!isMotorExtInit) {
             MotorExtInit()
@@ -242,7 +258,7 @@ namespace nanobit {
      * Init RGB pixels mounted on nanobit Shield
      */
     //% blockId="nanobit_shield_rgb" block="RGB"
-    //% weight=5
+    //% group="Nanobit Shield"  weight=63
     export function rgb(): neopixel.Strip {
         if (!neoStrip) {
             neoStrip = neopixel.create(DigitalPin.P16, 2, NeoPixelMode.RGB)
@@ -251,5 +267,51 @@ namespace nanobit {
         return neoStrip;
     }
 
+    /**
+     * Car Mode Execute
+     * @param mode Servo Channel; eg: S1
+     * @param speed [0-255] speed of car; eg: 255
+    */
+    //% block="Car %mode speed %spd"
+    //% group="Mecanum Car"
+    //% speed.min=0 speed.max=255
+    export function MecanumRun(mode: Run, speed: number): void{
+        if (mode == 0){
+            nanobit.MotorExt4(-speed, speed, speed, -speed)
+        }
+        else if(mode == 1){
+            nanobit.MotorExt4(speed, -speed, -speed, speed)
+        }
+        else if(mode == 2){
+            nanobit.MotorExt4(speed, speed, -speed, -speed)
+        }
+        else if(mode == 3){
+            nanobit.MotorExt4(-speed, -speed, speed, speed)
+        }
+        else if(mode == 4){
+            nanobit.MotorExt4(0, speed, 0, -speed)
+        }
+        else if(mode == 5){
+            nanobit.MotorExt4(speed, 0, -speed, 0)
+        }
+        else if(mode == 6){
+            nanobit.MotorExt4(0, -speed, 0, speed)
+        }
+        else if(mode == 7){
+            nanobit.MotorExt4(-speed, 0, speed, 0)
+        }
+        else if(mode == 8){
+            nanobit.MotorExt4(-speed, -speed, -speed, -speed)
+        }
+        else if(mode == 9){
+            nanobit.MotorExt4(speed, speed, speed, speed)
+        }
+        else if(mode == 10){
+            nanobit.MotorExt4(speed, speed, 0, 0)
+        }
+        else if(mode == 11){
+            nanobit.MotorExt4(-speed, -speed, 0, 0)
+        }
+    }
 
 }
