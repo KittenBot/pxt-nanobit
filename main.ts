@@ -6,7 +6,7 @@ load dependency
 
 
 //% color="#fe9973" weight=10 icon="\uf043"
-//% groups='["Arduino Nano Shield", "Nanobit Shield"", "Mecanum Car"]'
+//% groups='["Arduino Nano Shield", "Nanobit Shield"", "Mecanum Car", "meow ultrasonic"]'
 namespace nanobit {
     const DigiPinMap = [
         DigitalPin.P16, // D0
@@ -277,6 +277,57 @@ namespace nanobit {
         }
 
         return neoStrip;
+    }
+
+
+    export enum ValueUnit {
+        //% block="mm"
+        Millimeter,
+        //% block="cm"
+        Centimeters
+    }
+
+    let distanceBuf = 0;
+
+    /**
+     * signal pin
+     * @param pin singal pin; eg: DigitalPin.P1
+     * @param unit desired conversion unit
+     */
+    //% blockId=HoleUltrasonic block="ultrasonic sensor %pin distance unit %unit value"
+    //% group="meow ultrasonic" weight=91
+    export function HoleUltrasonic(pin: DigitalPin, unit: ValueUnit): number {
+        pins.setPull(pin, PinPullMode.PullNone);
+        // pins.setPull(pin, PinPullMode.PullDown);
+        pins.digitalWritePin(pin, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(pin, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(pin, 0);
+        pins.setPull(pin, PinPullMode.PullUp);
+
+        // read pulse
+        let d = pins.pulseIn(pin, PulseValue.High, 30000);
+        let ret = d;
+        // filter timeout spikes
+        if (ret == 0 && distanceBuf != 0) {
+            ret = distanceBuf;
+        }
+        distanceBuf = d;
+        pins.digitalWritePin(pin, 0);
+        basic.pause(15)
+        if (parseInt(control.hardwareVersion()) == 2) {
+            d = ret * 10 / 58;
+        }
+        else {
+            // return Math.floor(ret / 40 + (ret / 800));
+            d = ret * 15 / 58;
+        }
+        switch (unit) {
+            case ValueUnit.Millimeter: return Math.floor(d)
+            case ValueUnit.Centimeters: return Math.floor(d / 10)
+            default: return d;
+        }
     }
 
     /**

@@ -1,11 +1,16 @@
 {
     "nanobit.DigitalRead|block": "數字腳位讀 %pin",
-    "nanobit.DigitalWrite|block": "向數字 |腳位 %pin|寫 %v",
-    "nanobit.AnalogWrite|block": "向類比 |腳位 %pin|寫 %v",
+    "nanobit.DigitalWrite|block": "向數字 |腳位 %pin|寫 %value",
+    "nanobit.AnalogWrite|block": "向類比 |腳位 %pin|寫 %value",
     "nanobit.AnalogRead|block": "類比讀取 |腳位 %pin",
     "nanobit.PinMode|block": "%pin 上下拉 %mode",
     "nanobit.MotorExtRun|block": "電機 %idx |速度 %s",
     "nanobit.MotorExtStop|block": "所有電機停止",
     "nanobit.MotorRunDual|block": "雙電機 |%idxA 速度%spdA |%idxB 速度%spdB",
-    "nanobit.MotorExt4|block": "四電機 |M1A %m1 M1B %m2 M2A %m3 M2B %m4"
+    "nanobit.MotorExt4|block": "四電機 |M1A %m1 M1B %m2 M2A %m3 M2B %m4",
+    "nanobit.HoleUltrasonic|block": "讀取超音波距離 腳位 %pin 單位 %unit",
+    "{id:group}Arduino Nano Shield": "arduino nano 擴充板",
+    "{id:group}Nanobit Shield": "nanobit擴充板",
+    "{id:group}meow ultrasonic": "貓耳洞超音波",
+    "{id:group}Mecanum Car": "麥倫車"
 }

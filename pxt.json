@@ -6,7 +6,8 @@
     "dependencies": {
         "core": "*",
         "oled": "github:kittenbot/pxt-oled#v0.1.6",
-        "neopixel": "github:kittenbot/pxt-neopixel#v0.6.15"
+        "neopixel": "github:kittenbot/pxt-neopixel#v0.6.15",
+        "microphone": "*"
     },
     "files": [
         "README.md",
@@ -15,5 +16,12 @@
         "_locales/zh-tw/nanobit-strings.json"
     ],
     "public": true,
+    "targetVersions": {
+        "target": "8.0.16",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
     "preferredEditor": "tsprj"
 }

@@ -1,7 +1,7 @@
 {
     "nanobit.DigitalRead|block": "数字读取引脚 %pin",
-    "nanobit.DigitalWrite|block": "向数字 |引脚 %pin|写 %v",
-    "nanobit.AnalogWrite|block": "向模拟 |引脚 %pin|写 %v",
+    "nanobit.DigitalWrite|block": "向数字 |引脚 %pin|写 %value",
+    "nanobit.AnalogWrite|block": "向模拟 |引脚 %pin|写 %value",
     "nanobit.AnalogRead|block": "模拟读取引脚 %pin",
     "nanobit.PinMode|block": "%pin 上下拉 %mode",
     "nanobit.MotorExtRun|block": "电机 %idx |速度 %s",
@@ -18,5 +18,10 @@
     "nanobit.Run.RotateLeft|block": "左旋转",
     "nanobit.Run.RotateRight|block": "右旋转",
     "nanobit.Run.DriftRight|block": "右漂移",
-    "nanobit.Run.DriftLeft|block": "左漂移"
+    "nanobit.Run.DriftLeft|block": "左漂移",
+    "nanobit.HoleUltrasonic|block": "读取超声波距离 引脚 %pin 单位 %unit",
+    "{id:group}Arduino Nano Shield": "arduino nano 扩展板",
+    "{id:group}Nanobit Shield": "nanobit扩展板",
+    "{id:group}meow ultrasonic": "猫耳洞超声波",
+    "{id:group}Mecanum Car": "麦伦车"
 }
